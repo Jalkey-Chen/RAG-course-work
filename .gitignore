@@ -1,0 +1,48 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+
+# ---- Environments ----
+.venv/
+.env
+
+# ---- uv / Poetry / pip ----
+uv.lock
+pip-wheel-metadata/
+*.egg-info/
+dist/
+build/
+
+# ---- Logs ----
+*.log
+logs/
+*.out
+
+# ---- IDE / OS ----
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# ---- Tests ----
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ---- Cache / temp ----
+.cache/
+tmp/
+temp/
+
+# ---- Data ----
+data/processed/*
+storage/faiss/*
+!data/raw/.keep
+!storage/faiss/.keep
+
+# ---- Docker ----
+*.pid
+docker-compose.override.yml
