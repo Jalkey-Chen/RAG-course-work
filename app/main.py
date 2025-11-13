@@ -6,6 +6,8 @@ load_dotenv()
 
 from fastapi import FastAPI
 from app.api import routes_health, routes_query, routes_ingest
+from app.web import routes_web
+
 
 def create_app() -> FastAPI:
     app = FastAPI(title="RAG-course-work", version="0.1.0")
@@ -13,7 +15,7 @@ def create_app() -> FastAPI:
     app.include_router(routes_health.router, prefix="/api")
     app.include_router(routes_query.router, prefix="/api")
     app.include_router(routes_ingest.router, prefix="/api")
-
+    app.include_router(routes_web.router)
     return app
 
 

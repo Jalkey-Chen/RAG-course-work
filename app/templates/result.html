@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>RAG Answer</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <h2>Question:</h2>
+  <p>{{ question }}</p>
+  <h2>Answer:</h2>
+  <div class="answer">{{ answer | safe }}</div>
+  <h3>Sources:</h3>
+  <ul>
+    {% for s in sources %}
+      <li><b>{{ s.rank }}</b> – {{ s.metadata.source }} (score: {{ '%.4f'|format(s.score) }})</li>
+    {% endfor %}
+  </ul>
+  <a href="/">← Back</a>
+</body>
+</html>

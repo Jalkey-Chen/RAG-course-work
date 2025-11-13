@@ -11,7 +11,6 @@ import numpy as np
 from openai import OpenAI
 import tiktoken
 
-
 def _approx_token_count(text: str, model: str) -> int:
     """
     Approximate token count for a given text and model using tiktoken.

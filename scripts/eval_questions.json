@@ -1,0 +1,35 @@
+{
+  "conceptual": {
+    "title": "Level 1 — Core ML Concepts",
+    "description": "Covers key theoretical and algorithmic foundations from lectures and annotated notes.",
+    "questions": [
+      "What is the difference between training error and generalization error, and why can relying solely on training error be misleading?",
+      "Explain the bias-variance tradeoff in the context of model evaluation. How does it relate to overfitting and underfitting?",
+      "Describe the main steps of backpropagation and how gradient descent updates the network weights.",
+      "What are the advantages of cross-validation compared to using a single validation set?",
+      "How do kernel methods enable non-linear decision boundaries while still using linear models?"
+    ]
+  },
+  "applied": {
+    "title": "Level 2 — Applied Algorithms and Model Design",
+    "description": "Focuses on applying ML algorithms and comparing modeling strategies from assignments and lecture materials.",
+    "questions": [
+      "What are the main differences between linear regression, logistic regression, and perceptron models? In what scenarios would each be appropriate?",
+      "How does ridge regression prevent overfitting, and how does its loss function differ from ordinary least squares?",
+      "Explain the idea behind K-Nearest Neighbors (KNN) and discuss one advantage and one limitation of this algorithm.",
+      "Compare Random Forest, Logistic Regression, and XGBoost in terms of interpretability and performance trade-offs for policy data prediction.",
+      "What role do cosponsorship and fiscal data play in predicting the likelihood of a bill's enactment in your project?"
+    ]
+  },
+  "project": {
+    "title": "Level 3 — Integration and Reflection",
+    "description": "Links ML theory with your final project on legislative bill prediction and reflection on model design choices.",
+    "questions": [
+      "How can feature selection techniques improve your model's predictive performance when using legislative text data?",
+      "Discuss how embedding-based similarity could be applied to classify bills with similar policy intent.",
+      "Why is model interpretability important in policy prediction contexts? Give one example from the Illinois legislature project.",
+      "In the project, which machine learning model performed best, and why?",
+      "If I was to extend the project to other states or national bills, what modifications would you recommend me to make to improve generalization?"
+    ]
+  }
+}
