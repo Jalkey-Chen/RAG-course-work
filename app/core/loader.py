@@ -2,13 +2,14 @@
 loader.py
 ----------
 Provides utilities to load text content from multiple file types:
-txt, md, docx, csv, pdf, and html.
+txt, md, docx, csv, pdf, and html. Also supports expanding directories.
 """
 
 from pathlib import Path
 from typing import List, Dict
 import csv
 import re
+import os
 
 from bs4 import BeautifulSoup  # For HTML parsing
 from PyPDF2 import PdfReader   # For PDF text extraction
@@ -18,15 +19,13 @@ try:
 except ImportError:
     Document = None
 
+# Supported extensions
+SUPPORTED_EXTS = {".txt", ".md", ".docx", ".csv", ".pdf", ".html"}
+
 
 def clean_text(text: str) -> str:
     """
     Clean extra whitespace and control characters.
-
-    Parameters
-    ----------
-    text : str
-        Raw text content.
 
     Returns
     -------
@@ -37,6 +36,51 @@ def clean_text(text: str) -> str:
     return text.strip()
 
 
+def expand_input_paths(paths: List[str] | None) -> List[str]:
+    """
+    Expand a list of inputs (files/dirs/globs) into concrete file paths.
+
+    Parameters
+    ----------
+    paths : List[str] | None
+        If None or empty, will use env var `RAG_DATA_DIR` (default: 'data/raw').
+
+    Returns
+    -------
+    List[str]
+        Concrete file paths filtered by SUPPORTED_EXTS, de-duplicated.
+    """
+    # Fallback to default directory when not provided
+    if not paths:
+        base_dir = os.getenv("RAG_DATA_DIR", "data/raw")
+        paths = [base_dir]
+
+    out: list[str] = []
+    for p in paths:
+        path = Path(p)
+        if path.is_file():
+            if path.suffix.lower() in SUPPORTED_EXTS:
+                out.append(str(path))
+        elif path.is_dir():
+            for f in path.rglob("*"):
+                if f.is_file() and f.suffix.lower() in SUPPORTED_EXTS:
+                    out.append(str(f))
+        else:
+            # Treat as glob pattern (e.g., "data/raw/**/*.pdf")
+            for f in Path().glob(p):
+                if f.is_file() and f.suffix.lower() in SUPPORTED_EXTS:
+                    out.append(str(f))
+
+    # De-duplicate while preserving order
+    seen = set()
+    deduped = []
+    for p in out:
+        if p not in seen:
+            deduped.append(p)
+            seen.add(p)
+    return deduped
+
+
 def load_documents(paths: List[str]) -> List[Dict]:
     """
     Load text content from multiple file types.
@@ -44,7 +88,7 @@ def load_documents(paths: List[str]) -> List[Dict]:
     Parameters
     ----------
     paths : List[str]
-        A list of file paths to load.
+        A list of file paths to load (should be expanded beforehand).
 
     Returns
     -------
